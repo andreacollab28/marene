@@ -17,7 +17,7 @@
 
         .page-shell { min-height: 100vh; display: flex; flex-direction: column; }
         
-        /* HEADER PREMIUM: Logo Izquierda, Nav Centro, Iconos Derecha */
+        /* HEADER PREMIUM */
         .page-header { position: sticky; top: 0; z-index: 30; background: #fff; border-bottom: 1px solid rgba(17,17,17,.08); }
         .header-inner { max-width: 1200px; margin: 0 auto; padding: 1rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
         
@@ -32,15 +32,33 @@
         .header-action-btn:hover { transform: scale(1.05); }
         .cart-badge-count { position: absolute; top: -6px; right: -8px; background: #111; color: #fff; font-size: .65rem; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; }
 
-        /* HERO CLEAN */
-        .hero-section { text-align: center; max-width: 720px; margin: 0 auto; padding: 4rem 1rem 3rem; }
-        .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 400; line-height: 1.05; margin: 0 0 1rem; letter-spacing: .08em; }
-        .hero-copy { margin: 0 auto 2rem; color: #5d5d5d; font-size: 1rem; line-height: 1.75; max-width: 36rem; }
-        .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 1rem 2rem; border-radius: 999px; background: #111; color: #fff; text-transform: uppercase; letter-spacing: .15em; font-size: .8rem; font-weight: 600; transition: background .2s ease; }
-        .btn-primary:hover { background: #333; }
+        /* NUEVO HERO CARRUSEL ESTILO SARTORINI */
+        .hero-carousel { position: relative; width: 100%; height: clamp(300px, 45vh, 500px); overflow: hidden; background: #f4f1ea; }
+        .carousel-track { display: flex; width: 300%; height: 100%; transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
+        .carousel-slide { width: 33.333%; height: 100%; position: relative; flex-shrink: 0; }
+        .carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        
+        /* Contenido superpuesto con diseño minimalista */
+        .carousel-overlay-content { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.25); display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 2rem 10%; color: #fff; text-align: left; }
+        .carousel-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; margin: 0 0 0.5rem; letter-spacing: .05em; text-transform: uppercase; line-height: 1.1; }
+        .carousel-subtitle { font-size: clamp(0.85rem, 2vw, 1.1rem); margin: 0 0 1.5rem; max-width: 500px; color: rgba(255,255,255,0.9); font-weight: 300; }
+        
+        .btn-carousel-buy { display: inline-flex; align-items: center; justify-content: center; padding: 0.85rem 2rem; border-radius: 999px; background: #fff; color: #111; text-transform: uppercase; letter-spacing: .15em; font-size: .75rem; font-weight: 600; border: 1px solid #fff; transition: all .2s ease; }
+        .btn-carousel-buy:hover { background: transparent; color: #fff; }
+
+        /* Controles de flechas laterales */
+        .carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.2); color: #fff; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: background .2s; z-index: 10; }
+        .carousel-arrow:hover { background: rgba(255,255,255,0.4); }
+        .arrow-left { left: 1rem; }
+        .arrow-right { right: 1rem; }
+
+        /* Indicadores de bolitas abajo */
+        .carousel-indicators { position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.5rem; z-index: 10; }
+        .indicator-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.4); transition: background .2s; }
+        .indicator-dot.active { background: #fff; width: 20px; border-radius: 999px; }
 
         /* GRID DE PRODUCTOS EN 2 COLUMNAS MÓVILES */
-        .product-section { max-width: 1200px; margin: 0 auto; padding: 0 1rem 4rem; }
+        .product-section { max-width: 1200px; margin: 0 auto; padding: 3rem 1rem 4rem; }
         .product-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
         @media (min-width: 768px) { .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; } }
         
@@ -52,7 +70,7 @@
         .product-card-title { margin: 0 0 .25rem; font-size: .9rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: #111; }
         .product-card-price { margin: 0; color: #666; font-size: .85rem; font-weight: 500; }
 
-        /* DETALLE OVERLAY / MODAL */
+        /* DETALLE OVERLAY */
         .detail-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.4); backdrop-filter: blur(4px); display: grid; place-items: center; padding: 1rem; z-index: 50; transition: opacity .25s ease; }
         .detail-overlay.hidden { display: none; }
         .detail-modal { width: min(850px, 100%); background: #fff; border-radius: 1.5rem; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,.15); position: relative; }
@@ -73,17 +91,22 @@
         .cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.3); z-index: 55; display: none; }
         .cart-overlay.active { display: block; }
 
-        /* FOOTER CORREGIDO */
+        /* FOOTER */
         .minimal-footer { border-top: 1px solid rgba(17,17,17,.08); padding: 3rem 1rem; text-align: center; background: #fff; margin-top: auto; }
         .footer-socials-text { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem; font-size: 0.95rem; color: #333; }
         .footer-socials-text p { margin: 0; }
         .footer-note { margin: 0; color: #777; font-size: .85rem; text-transform: uppercase; letter-spacing: .05em; }
 
+        /* BOTÓN FLOTANTE DE WHATSAPP (SARTORINI STYLE) */
+        .whatsapp-fixed-btn { position: fixed; bottom: 1.5rem; right: 1.5rem; background: #25D366; color: #fff; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(37,211,102,0.3); z-index: 40; transition: transform .2s ease; }
+        .whatsapp-fixed-btn:hover { transform: scale(1.1); }
+        .whatsapp-fixed-btn svg { width: 30px; height: 30px; fill: currentColor; }
+
         .no-scroll { overflow: hidden; }
 
         @media (max-width: 600px) {
             .header-inner { padding: 0.8rem 1rem; }
-            .site-nav { display: none; } /* Ocultamos links de texto en móvil para máxima limpieza */
+            .site-nav { display: none; }
         }
     </style>
 </head>
@@ -98,11 +121,9 @@
                     <a class="nav-link" href="#footer">Contactos</a>
                 </nav>
                 <div class="header-actions">
-                    <!-- Icono de Favoritos (Corazón) -->
                     <button class="header-action-btn" aria-label="Ver Favoritos">
                         <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                     </button>
-                    <!-- Icono de Carrito Comercial con Contador dinámico (Bolsa) -->
                     <button class="header-action-btn" id="cart-toggle-icon-btn" onclick="openCartDrawer()" aria-label="Abrir Carrito">
                         <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
                         <span class="cart-badge-count" style="display: none;">0</span>
@@ -111,11 +132,47 @@
             </div>
         </header>
 
-        <main>
-            <section class="hero-section" id="inicio">
-                <h1 class="hero-title">MARENE</h1>
-                <p class="hero-copy">Collares minimalistas creados para quienes buscan un estilo directo, fresco y elegante.</p>
-                <a href="#productos" class="btn-primary">Ver collares</a>
+        <main id="inicio">
+            <!-- NUEVO COMPONENTE: Carrusel de Fotos Dinámico con Textos e Indicadores -->
+            <section class="hero-carousel" aria-label="Destacados de la marca">
+                <button class="carousel-arrow arrow-left" onclick="moveSlide(-1)" aria-label="Anterior slide">&#10094;</button>
+                <button class="carousel-arrow arrow-right" onclick="moveSlide(1)" aria-label="Siguiente slide">&#10095;</button>
+                
+                <div class="carousel-track" id="carouselTrack">
+                    <!-- Slide 1 (Para cambiar las fotos edita el src="") -->
+                    <div class="carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=1200&auto=format&fit=crop" alt="Colección Aura">
+                        <div class="carousel-overlay-content">
+                            <h2 class="carousel-title">Colección Aura</h2>
+                            <p class="carousel-subtitle">Elegancia sutil y brillo minimalista en baño de oro de 24k para exaltar tu look diario.</p>
+                            <a href="#productos" class="btn-carousel-buy">Comprar ahora</a>
+                        </div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?q=80&w=1200&auto=format&fit=crop" alt="Diseño Effortless">
+                        <div class="carousel-overlay-content">
+                            <h2 class="carousel-title">Estilo Esencial</h2>
+                            <p class="carousel-subtitle">Piezas delicadas creadas para complementarse perfectamente en capas.</p>
+                            <a href="#productos" class="btn-carousel-buy">Ver Colección</a>
+                        </div>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=1200&auto=format&fit=crop" alt="Plata de Ley">
+                        <div class="carousel-overlay-content">
+                            <h2 class="carousel-title">Detalles que Abrazan</h2>
+                            <p class="carousel-subtitle">Plata de ley 925 y acabados premium diseñados para perdurar.</p>
+                            <a href="#productos" class="btn-carousel-buy">Explorar Fieles</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-indicators">
+                    <span class="indicator-dot active" onclick="goToSlide(0)"></span>
+                    <span class="indicator-dot" onclick="goToSlide(1)"></span>
+                    <span class="indicator-dot" onclick="goToSlide(2)"></span>
+                </div>
             </section>
 
             <section class="product-section" id="productos">
@@ -135,29 +192,30 @@
         </footer>
     </div>
 
-    <!-- VENTANA EMERGENTE DETALLE (INTERACTIVA CON CAROUSEL Y SELECTORES DESDE JS) -->
+    <!-- BOTÓN FIJO FLOTANTE DE WHATSAPP -->
+    <a href="https://wa.me/573001234567?text=Hola%20MARENE%2C%20quiero%20recibir%20atenci%C3%B3n%20personalizada%20para%20mi%20pedido." class="whatsapp-fixed-btn" target="_blank" rel="noopener noreferrer" aria-label="Escríbenos por WhatsApp">
+        <svg viewBox="0 0 24 24"><path d="M12.012 2c-5.508 0-9.988 4.479-9.988 9.987 0 1.763.46 3.42 1.262 4.861l-1.286 4.697 4.811-1.261a9.92 9.92 0 0 0 4.201.936h.004c5.499 0 9.996-4.481 9.996-9.99 0-2.67-1.037-5.178-2.922-7.062C17.202 3.14 14.701 2 12.012 2zm6.136 14.195c-.269.756-1.564 1.385-2.146 1.442-.519.052-1.201.074-1.921-.157-.457-.146-1.026-.344-1.758-.661-3.111-1.347-5.114-4.512-5.269-4.72-.156-.207-1.272-1.696-1.272-3.235 0-1.539.802-2.296 1.087-2.608.285-.311.622-.389.829-.389.207 0 .415.004.596.012.191.008.446-.073.701.539.269.648.918 2.242.996 2.403.078.161.13.348.026.56-.104.212-.156.342-.311.518-.156.177-.327.394-.467.529-.156.145-.322.304-.139.617.182.311.81 1.324 1.737 2.152.923.824 1.701 1.08 2.012 1.208.311.129.493.109.674-.099.181-.207.778-.902.986-1.213.207-.311.415-.259.699-.155.285.104 1.815.856 2.126 1.011.311.155.518.233.596.363.078.13.078.752-.191 1.508z"/></svg>
+    </a>
+
+    <!-- VENTANA EMERGENTE DETALLE -->
     <div id="detail-overlay" class="detail-overlay hidden" aria-hidden="true">
         <div class="detail-modal" role="dialog" aria-modal="true">
             <div class="detail-header">
                 <p class="detail-title">Detalle de la Pieza</p>
                 <span id="detail-close" class="detail-close">&times;</span>
             </div>
-            <div class="detail-content">
-                <!-- El contenido de la ficha técnica se inyecta dinámicamente desde js/main.js -->
-            </div>
+            <div class="detail-content"></div>
         </div>
     </div>
 
-    <!-- CARRITO DE COMPRAS LATERAL (DRAWER COMPLETO) -->
+    <!-- CARRITO DE COMPRAS LATERAL -->
     <div id="cart-overlay" class="cart-overlay"></div>
     <div id="cart-drawer" class="cart-drawer">
         <div class="cart-drawer-header">
             <p class="cart-drawer-title">Mi Carrito</p>
             <span id="cart-close-btn" class="cart-drawer-close" onclick="closeCartDrawer()">&times;</span>
         </div>
-        <div class="cart-drawer-body" id="cart-drawer-items">
-            <!-- Los productos agregados se pintan aquí dinámicamente -->
-        </div>
+        <div class="cart-drawer-body" id="cart-drawer-items"></div>
         <div class="cart-drawer-footer">
             <div style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 1rem; font-size: 1.05rem;">
                 <span>Subtotal:</span>
@@ -167,11 +225,41 @@
         </div>
     </div>
 
-    <!-- SCRIPTS EN ORDEN CORRECTO -->
+    <!-- SCRIPTS DE COMPORTAMIENTO Y LOGICA DEL CARRUSEL AUTOMÁTICO -->
     <script src="js/data.js"></script>
     <script src="js/cart.js"></script>
     <script src="js/main.js"></script>
     <script>
+        let currentSlideIndex = 0;
+        const totalSlides = 3;
+        
+        function updateSlidePosition() {
+            const track = document.getElementById('carouselTrack');
+            const dots = document.querySelectorAll('.indicator-dot');
+            if(track) {
+                track.style.transform = `translateX(-${currentSlideIndex * 33.333}%)`;
+            }
+            dots.forEach((dot, idx) => {
+                if(idx === currentSlideIndex) dot.classList.add('active');
+                else dot.classList.remove('active');
+            });
+        }
+
+        function moveSlide(direction) {
+            currentSlideIndex = (currentSlideIndex + direction + totalSlides) % totalSlides;
+            updateSlidePosition();
+        }
+
+        function goToSlide(index) {
+            currentSlideIndex = index;
+            updateSlidePosition();
+        }
+
+        // Cambio automático de fotos cada 5 segundos
+        setInterval(() => {
+            moveSlide(1);
+        }, 5000);
+
         document.addEventListener('DOMContentLoaded', () => {
             if (typeof initShopPage === 'function') {
                 initShopPage();
