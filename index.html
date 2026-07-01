@@ -6,12 +6,16 @@
     <meta name="description" content="MARENE — Collares minimalistas para mujer.">
     <title>MARENE — Collares Minimalistas</title>
     <link rel="icon" href="assets/images/favicon.svg">
+    <!-- Importamos tipografías elegantes para el texto y el menú -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root { 
             color-scheme: light; 
-            --bg-primary: #FBEFA7;      /* Amarillo crema de las letras de tu logo */
+            --bg-primary: #FFFBE6;      /* Amarillo crema tono pastel suave, más sutil y limpio */
             --text-main: #3A1E24;       /* Marrón rojizo muy oscuro para máxima armonía */
-            --accent-main: #C84261;     /* El rosa intenso de fondo de tu logo original */
+            --accent-main: #C84261;     /* El rosa intenso característico de MARENE */
             --accent-muted: #F3D1D9;    /* Rosa suave pastel para bordes y hovers */
         }
         html { scroll-behavior: smooth; }
@@ -23,44 +27,51 @@
 
         .page-shell { min-height: 100vh; display: flex; flex-direction: column; }
         
-        /* HEADER PREMIUM DE LUJO ALINEADO EN 3 COLUMNAS */
-        .page-header { position: sticky; top: 0; z-index: 30; background: var(--bg-primary); border-bottom: 1px solid rgba(200, 66, 97, 0.15); padding: 0.75rem 0; }
-        .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 1rem; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1rem; }
+        /* HEADER PREMIUM DE LUJO ALINEADO EN 3 COLUMNAS STRICTAS */
+        .page-header { position: sticky; top: 0; z-index: 30; background: var(--bg-primary); border-bottom: 1px solid rgba(200, 66, 97, 0.1); padding: 1.2rem 0; }
+        .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
         
-        /* LOGO TIPO CÍRCULO CENTRADO Y MUCHO MÁS GRANDE */
-        .brand-logo { 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            width: 95px;               /* Tamaño imponente para que resalte */
-            height: 95px;              
-            background: #fff;          /* Fondo blanco para que el diseño contraste perfectamente */
-            border-radius: 50%; 
-            overflow: hidden; 
-            border: 3.5px solid var(--accent-main); /* Enmarcado con el rosa característico */
-            box-shadow: 0 4px 16px rgba(200, 66, 97, 0.2);
+        /* ESTILO EXCLUSIVO EN TEXTO PARA EL NOMBRE DEL LOGO */
+        .brand-text-logo { 
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: var(--accent-main);  /* Color rosado del logo original */
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            line-height: 1;
+            text-align: center;
+            display: inline-block;
             transition: transform 0.2s ease;
         }
-        .brand-logo:hover { transform: scale(1.05); }
-        .brand-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .brand-text-logo:hover { transform: scale(1.02); }
         
-        .site-nav { display: flex; gap: 1.5rem; justify-content: flex-start; }
-        .nav-link { text-transform: uppercase; letter-spacing: .1em; font-size: .85rem; color: rgba(58, 30, 36, 0.7); transition: color .2s ease; font-weight: 500; }
+        /* CORRECCIÓN DE TIPOGRAFÍA Y ESPACIADO DEL MENÚ */
+        .site-nav { display: flex; gap: 2rem; justify-content: flex-start; align-items: center; }
+        .nav-link { 
+            text-transform: uppercase; 
+            letter-spacing: .15em; 
+            font-size: .8rem; 
+            color: rgba(58, 30, 36, 0.7); 
+            transition: color .2s ease; 
+            font-weight: 500; 
+        }
         .nav-link:hover, .nav-link.active { color: var(--accent-main); }
 
-        .header-actions { display: flex; align-items: center; gap: 1.25rem; justify-content: flex-end; }
+        /* ACCIONES DERECHAS FIJAS EN SU EXTREMO */
+        .header-actions { display: flex; align-items: center; gap: 1.5rem; justify-content: flex-end; }
         .header-action-btn { position: relative; display: inline-flex; align-items: center; justify-content: center; color: var(--text-main); transition: transform .2s ease; }
         .header-action-btn:hover { transform: scale(1.05); color: var(--accent-main); }
         .cart-badge-count { position: absolute; top: -6px; right: -8px; background: var(--accent-main); color: #fff; font-size: .65rem; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; }
 
         /* HERO CARRUSEL */
-        .hero-carousel { position: relative; width: 100%; height: clamp(300px, 45vh, 500px); overflow: hidden; background: var(--accent-muted); }
+        .hero-carousel { position: relative; width: 100%; height: clamp(350px, 50vh, 550px); overflow: hidden; background: var(--accent-muted); }
         .carousel-track { display: flex; width: 300%; height: 100%; transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
         .carousel-slide { width: 33.333%; height: 100%; position: relative; flex-shrink: 0; }
         .carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
         
-        .carousel-overlay-content { position: absolute; inset: 0; background: rgba(58, 30, 36, 0.25); display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 2rem 10%; color: #fff; text-align: left; }
-        .carousel-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; margin: 0 0 0.5rem; letter-spacing: .05em; text-transform: uppercase; line-height: 1.1; }
+        .carousel-overlay-content { position: absolute; inset: 0; background: rgba(58, 30, 36, 0.2); display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 2rem 10%; color: #fff; text-align: left; }
+        .carousel-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 400; margin: 0 0 0.5rem; letter-spacing: .05em; text-transform: uppercase; line-height: 1.1; }
         .carousel-subtitle { font-size: clamp(0.85rem, 2vw, 1.1rem); margin: 0 0 1.5rem; max-width: 500px; color: rgba(255,255,255,0.9); font-weight: 300; }
         
         .btn-carousel-buy { display: inline-flex; align-items: center; justify-content: center; padding: 0.85rem 2rem; border-radius: 999px; background: #fff; color: var(--text-main); text-transform: uppercase; letter-spacing: .15em; font-size: .75rem; font-weight: 600; border: 1px solid #fff; transition: all .2s ease; }
@@ -142,10 +153,10 @@
         .no-scroll { overflow: hidden; }
 
         @media (max-width: 768px) {
-            .header-inner { display: flex; flex-direction: column; text-align: center; gap: 0.75rem; padding: 0.5rem 1rem; }
-            .site-nav { justify-content: center; order: 2; gap: 1.2rem; }
+            .header-inner { display: flex; flex-direction: column; text-align: center; gap: 1rem; padding: 0.5rem 1rem; }
+            .site-nav { justify-content: center; order: 2; gap: 1.5rem; }
             .header-actions { justify-content: center; order: 3; }
-            .brand-logo { order: 1; width: 85px; height: 85px; }
+            .brand-text-logo { order: 1; font-size: 1.8rem; }
         }
     </style>
 </head>
@@ -154,21 +165,19 @@
         <header class="page-header">
             <div class="header-inner">
                 
-                <!-- 1. COLUMNA IZQUIERDA: MENÚ DE NAVEGACIÓN -->
+                <!-- 1. COLUMNA IZQUIERDA: MENÚ DE NAVEGACIÓN ARTÍSTICO -->
                 <nav class="site-nav" aria-label="Navegación principal">
                     <a class="nav-link active" href="#inicio">Inicio</a>
                     <a class="nav-link" href="#productos">Catálogo</a>
                     <a class="nav-link" href="#footer">Contactos</a>
                 </nav>
 
-                <!-- 2. COLUMNA CENTRAL: LOGO CENTRADO (Muestra provisional con imagen existente) -->
+                <!-- 2. COLUMNA CENTRAL: NOMBRE DE LA MARCA EN TEXTO ELEGANTE -->
                 <div style="display: flex; justify-content: center;">
-                    <a href="#inicio" class="brand-logo">
-                        <img src="assets/images/anillo-solitaire-1.png" alt="MARENE">
-                    </a>
+                    <a href="#inicio" class="brand-text-logo">MARENE</a>
                 </div>
 
-                <!-- 3. COLUMNA DERECHA: ÍCONOS -->
+                <!-- 3. COLUMNA DERECHA: ÍCONOS ALINEADOS -->
                 <div class="header-actions">
                     <button class="header-action-btn" aria-label="Ver Favoritos">
                         <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
@@ -279,7 +288,7 @@
         </div>
     </div>
 
-    <!-- VENTANA EMERGENTE: POLÍTICAS DE COMPRA -->
+    <!-- VENTANA EMERGENTE: POLÍTICAS DE COMPBA -->
     <div id="policies-overlay" class="policies-overlay" aria-hidden="true">
         <div class="policies-modal">
             <div class="policies-header">
@@ -303,13 +312,13 @@
                 <p>Una vez recibido el anticipo y comenzada la manufactura, <strong>no se realizan reembolsos ni cancelaciones</strong>, ya que los recursos se invierten de inmediato en la compra de insumos. Los ajustes de diseño solo se evaluarán dentro de las primeras horas de la solicitud.</p>
 
                 <h5>4. Envíos y Rastreo</h5>
-                <p>Realizamos envíos asegurados a toda Colombia. Al despachar el paquete, te compartiremos el número de guía de la transportadora para su monetoreo en tiempo real.</p>
+                <p>Realizamos envíos asegurados a toda Colombia. Al despachar el paquete, te compartiremos el número de guía de la transportadora para su monitoreo en tiempo real.</p>
 
                 <h5>5. Daños en Transporte</h5>
                 <p>Si tu joya sufre daños en el traslado, debes reportarlo en las primeras 24 horas adjuntando fotografías claras de la caja o bolsa de seguridad externa sellada y del producto.</p>
 
                 <h5>6. Cobertura de Garantía</h5>
-                <p>Ofrecemos <strong>30 días de garantía</strong> por fallas técnicas latentes (cierres, costuras de hilos o uniones defectuosas). La garantía queda anulada por golpes, mal uso o contacto directo con agua, perfumes, cremas o químicos.</p>
+                <p>Ofrecemos <strong>30 días de garantía</strong> por fallas técnicas latentes (cierres, costuras de hilos o uniones defectuosas). La garantía queda aunulada por golpes, mal uso o contacto directo con agua, perfumes, cremas o químicos.</p>
 
                 <h5>7. Guía de Cuidado Esencial</h5>
                 <p>Para prolongar la vida útil de tus joyas: evita la humedad y el contacto con químicos, almacena cada pieza de forma individual en un entorno seco y límpiala usando únicamente un paño de microfibra seco.</p>
