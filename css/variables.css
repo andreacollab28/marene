@@ -1,0 +1,64 @@
+/* System Design Tokens for MARENE */
+
+:root {
+    /* Color Palette */
+    --color-bg-primary: #FDFBF7;    /* Linen White */
+    --color-bg-secondary: #F5EFEB;  /* Soft Sand */
+    --color-bg-dark: #1A1A1A;       /* Deep Charcoal for footers/dark elements */
+    --color-accent: #C5A880;        /* Muted Gold */
+    --color-accent-hover: #AB8E67;  /* Muted Gold Darker */
+    --color-accent-light: #F0EAE1;  /* Very soft gold/sand mix */
+    --color-text-primary: #1A1A1A;  /* Deep Charcoal */
+    --color-text-secondary: #6B6B6B;/* Mist Grey */
+    --color-text-light: #8E8E8E;    /* Light Grey */
+    --color-text-on-dark: #FDFBF7;
+    --color-border: #E8E2DE;        /* Warm sutil border */
+    --color-border-dark: #333333;   /* For dark elements border */
+    --color-white: #FFFFFF;
+    
+    /* Typography */
+    --font-title: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    
+    /* Font Weights */
+    --fw-light: 300;
+    --fw-regular: 400;
+    --fw-medium: 500;
+    --fw-semibold: 600;
+    --fw-bold: 700;
+    
+    /* Layout & Spacing */
+    --max-width: 1400px;
+    --spacing-xs: 0.25rem;  /* 4px */
+    --spacing-sm: 0.5rem;   /* 8px */
+    --spacing-md: 1rem;     /* 16px */
+    --spacing-lg: 1.5rem;    /* 24px */
+    --spacing-xl: 3rem;     /* 48px */
+    --spacing-xxl: 5rem;    /* 80px */
+    
+    /* Transitions & Animations */
+    --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --ease-slow: cubic-bezier(0.25, 0.8, 0.25, 1);
+    --ease-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    
+    --transition-smooth: all 0.3s var(--ease-smooth);
+    --transition-slow: all 0.5s var(--ease-slow);
+    --transition-bounce: all 0.4s var(--ease-bounce);
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(26, 26, 26, 0.03);
+    --shadow-md: 0 8px 24px rgba(26, 26, 26, 0.05);
+    --shadow-lg: 0 16px 40px rgba(26, 26, 26, 0.08);
+    
+    /* Border Radii */
+    --radius-sm: 2px;       /* For sharp modern premium look */
+    --radius-md: 4px;
+    --radius-lg: 8px;
+    --radius-full: 9999px;
+    
+    /* Z-Indices */
+    --z-header: 100;
+    --z-drawer: 200;
+    --z-overlay: 150;
+    --z-notification: 300;
+}

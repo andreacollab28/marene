@@ -1,0 +1,314 @@
+/* Header and Navigation Component for MARENE */
+
+/* Top Promo Announcement Banner */
+.promo-banner {
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-on-dark);
+    text-align: center;
+    font-size: 0.75rem;
+    padding: 0.5rem 0;
+    font-weight: var(--fw-light);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+/* Header Container */
+.site-header {
+    background-color: rgba(253, 251, 247, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: var(--z-header);
+    transition: var(--transition-smooth);
+}
+
+/* Sticky Header Scroll state */
+.site-header.scrolled {
+    background-color: rgba(253, 251, 247, 0.98);
+    box-shadow: var(--shadow-sm);
+    padding: 0.2rem 0;
+}
+
+.header-container {
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: var(--transition-smooth);
+}
+
+.site-header.scrolled .header-container {
+    height: 60px;
+}
+
+/* Hamburger mobile menu button */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 20px;
+    height: 14px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 100%;
+    height: 1.5px;
+    background-color: var(--color-text-primary);
+    transition: var(--transition-smooth);
+}
+
+/* Nav Links - Desktop */
+.nav-menu {
+    display: flex;
+    gap: var(--spacing-lg);
+}
+
+.nav-link {
+    font-size: 0.8rem;
+    font-weight: var(--fw-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-text-primary);
+    padding: 0.5rem 0;
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--color-accent);
+    transition: var(--transition-smooth);
+}
+
+.nav-link:hover {
+    color: var(--color-accent);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.nav-link.active {
+    color: var(--color-accent);
+}
+
+.nav-link.active::after {
+    width: 100%;
+}
+
+/* Brand Logo */
+.logo-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.logo {
+    font-family: var(--font-title);
+    font-size: 1.8rem;
+    font-weight: var(--fw-light);
+    letter-spacing: 0.25em;
+    color: var(--color-text-primary);
+    text-transform: uppercase;
+}
+
+/* Header Actions */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.action-btn {
+    position: relative;
+    color: var(--color-text-primary);
+    padding: 0.5rem;
+    transition: var(--transition-smooth);
+    border-radius: var(--radius-full);
+}
+
+.action-btn:hover {
+    color: var(--color-accent);
+}
+
+/* Search Bar Overlay styling */
+.search-overlay {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--color-bg-primary);
+    border-bottom: 1px solid var(--color-border);
+    padding: 1.5rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: var(--transition-smooth);
+    box-shadow: var(--shadow-md);
+    z-index: 90;
+}
+
+.search-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.search-input-wrapper {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-input-wrapper input {
+    width: 100%;
+    padding: 1rem 3rem 1rem 1.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-white);
+}
+
+.search-close-inline {
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-secondary);
+}
+
+.search-close-inline:hover {
+    color: var(--color-text-primary);
+}
+
+/* Search Results dropdown */
+.search-results-dropdown {
+    max-width: 600px;
+    margin: 0.5rem auto 0;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-md);
+    max-height: 350px;
+    overflow-y: auto;
+    display: none;
+}
+
+.search-result-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--color-bg-secondary);
+    transition: var(--transition-smooth);
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.search-result-item:hover {
+    background-color: var(--color-bg-secondary);
+}
+
+.search-result-item img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 1rem;
+}
+
+.search-result-info h4 {
+    font-size: 0.9rem;
+    font-family: var(--font-body);
+    font-weight: var(--fw-medium);
+}
+
+.search-result-info p {
+    font-size: 0.8rem;
+    color: var(--color-accent);
+}
+
+/* Mobile Sidebar Nav Drawer */
+.mobile-nav-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100%;
+    background-color: var(--color-bg-primary);
+    z-index: var(--z-drawer);
+    padding: var(--spacing-xl) var(--spacing-lg);
+    box-shadow: var(--shadow-lg);
+    transform: translateX(-100%);
+    transition: var(--transition-slow);
+}
+
+.mobile-nav-drawer.active {
+    transform: translateX(0);
+}
+
+.mobile-nav-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: var(--color-text-primary);
+}
+
+.mobile-nav-logo {
+    font-family: var(--font-title);
+    font-size: 1.5rem;
+    letter-spacing: 0.2em;
+    margin-bottom: var(--spacing-xl);
+    text-transform: uppercase;
+}
+
+.mobile-nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.mobile-nav-link {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-primary);
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--color-bg-secondary);
+}
+
+.mobile-nav-link:hover {
+    color: var(--color-accent);
+    padding-left: var(--spacing-xs);
+}
+
+/* Overlay general styled in styles.css */
+
+/* Responsiveness for Header */
+@media (max-width: 992px) {
+    .menu-toggle {
+        display: flex;
+    }
+    
+    .nav-menu {
+        display: none;
+    }
+    
+    .logo {
+        font-size: 1.4rem;
+        letter-spacing: 0.2em;
+    }
+}

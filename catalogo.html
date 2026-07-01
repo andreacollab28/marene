@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explora el catálogo completo de MARENE. Encuentra collares, aretes, pulseras y anillos premium con diseño minimalista y baño de oro.">
+    <title>Catálogo Completo | MARENE</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2280%22 font-family=%22Georgia, serif%22 fill=%22%23C5A880%22>M</text></svg>">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://marene.com/catalogo.html">
+    
+    <!-- Google Fonts Preconnect & Link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS imports -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components/header.css">
+    <link rel="stylesheet" href="css/components/product-card.css">
+    <link rel="stylesheet" href="css/components/cart-drawer.css">
+    
+    <!-- Page Specific CSS -->
+    <style>
+        .catalog-layout {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-xl);
+            align-items: start;
+        }
+        
+        /* Filter Sidebar */
+        .filter-sidebar {
+            position: sticky;
+            top: 100px;
+            background-color: var(--color-bg-primary);
+            padding: var(--spacing-md);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+        }
+        
+        .filter-group {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .filter-group:last-child {
+            margin-bottom: 0;
+        }
+        
+        .filter-title {
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: var(--fw-semibold);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-text-primary);
+            margin-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--color-border);
+            padding-bottom: var(--spacing-xs);
+        }
+        
+        .filter-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+        }
+        
+        .filter-btn {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            text-align: left;
+            padding: 0.25rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            transition: var(--transition-smooth);
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            color: var(--color-accent);
+            padding-left: 4px;
+        }
+        
+        .filter-count {
+            font-size: 0.75rem;
+            color: var(--color-text-light);
+            background-color: var(--color-bg-secondary);
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+        }
+        
+        /* Search Box in Catalog */
+        .catalog-search-wrapper {
+            position: relative;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .catalog-search-wrapper input {
+            width: 100%;
+            padding: 0.6rem 2.5rem 0.6rem 0.75rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+        }
+        
+        .catalog-search-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-text-light);
+        }
+        
+        /* Top Bar */
+        .catalog-topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+            border-bottom: 1px solid var(--color-border);
+            padding-bottom: var(--spacing-md);
+        }
+        
+        .results-count {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+        }
+        
+        .sort-select-wrapper {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .sort-select-wrapper label {
+            font-size: 0.85rem;
+            color: var(--color-text-secondary);
+        }
+        
+        .sort-select {
+            padding: 0.5rem 2rem 0.5rem 0.75rem;
+            font-size: 0.85rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            background-color: var(--color-white);
+        }
+        
+        /* Breadcrumbs */
+        .breadcrumbs {
+            font-size: 0.8rem;
+            color: var(--color-text-light);
+            margin-top: var(--spacing-lg);
+            display: flex;
+            gap: var(--spacing-xs);
+        }
+        
+        .breadcrumbs a:hover {
+            color: var(--color-accent);
+        }
+        
+        /* Active Filters indicators */
+        .active-filters-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+            align-items: center;
+        }
+        
+        .active-filter-badge {
+            background-color: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            color: var(--color-text-primary);
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .active-filter-badge button {
+            color: var(--color-text-light);
+            display: flex;
+            align-items: center;
+        }
+        
+        .active-filter-badge button:hover {
+            color: var(--color-text-primary);
+        }
+        
+        .clear-filters-btn {
+            font-size: 0.75rem;
+            color: var(--color-accent);
+            text-decoration: underline;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .catalog-layout {
+                grid-template-columns: 1fr;
+            }
+            .filter-sidebar {
+                position: static;
+                margin-bottom: var(--spacing-md);
+            }
+            /* Collapsible mobile filters */
+            .filter-sidebar {
+                display: none;
+            }
+            .filter-sidebar.active {
+                display: block;
+            }
+            .mobile-filter-trigger {
+                display: flex;
+                align-items: center;
+                gap: var(--spacing-sm);
+                padding: 0.6rem 1.2rem;
+                border: 1px solid var(--color-border);
+                border-radius: var(--radius-sm);
+                font-size: 0.85rem;
+                background-color: var(--color-white);
+            }
+        }
+        @media (min-width: 993px) {
+            .mobile-filter-trigger {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Banner Anuncio Superior -->
+    <div class="promo-banner">
+        <span>Envío gratis a toda Colombia por compras superiores a $150.000</span>
+    </div>
+
+    <!-- Header Elegante (Navegación Sticky) -->
+    <header class="site-header">
+        <div class="container header-container">
+            <button id="menu-toggle-btn" class="menu-toggle" aria-label="Abrir Menú de Navegación">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav class="nav-menu" role="navigation">
+                <a href="index.html" class="nav-link">Inicio</a>
+                <a href="catalogo.html" class="nav-link active">Catálogo</a>
+                <a href="nosotros.html" class="nav-link">Nosotros</a>
+                <a href="contacto.html" class="nav-link">Contacto</a>
+            </nav>
+
+            <div class="logo-container">
+                <a href="index.html" class="logo">MARENE</a>
+            </div>
+
+            <div class="header-actions">
+                <button id="search-toggle-btn" class="action-btn" aria-label="Buscar productos">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
+                    </svg>
+                </button>
+                <a href="contacto.html" class="action-btn" aria-label="Mi Cuenta / Soporte" id="account-action-id">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
+                    </svg>
+                </a>
+                <a href="catalogo.html?show=favorites" class="action-btn" aria-label="Lista de Favoritos" id="favorites-action-id">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
+                    </svg>
+                    <span class="badge fav-badge-count" style="display: none;">0</span>
+                </a>
+                <button onclick="openCartDrawer()" class="action-btn" aria-label="Abrir Carrito" id="cart-action-id">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                    </svg>
+                    <span class="badge cart-badge-count" style="display: none;">0</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Barra de Búsqueda Desplegable -->
+        <div id="search-overlay" class="search-overlay">
+            <div class="container">
+                <div class="search-input-wrapper">
+                    <input type="text" id="search-input" placeholder="Buscar collares, aretes, pulseras..." autocomplete="off">
+                    <button id="search-close-btn" class="search-close-inline" aria-label="Cerrar Búsqueda">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                <div id="search-results" class="search-results-dropdown"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menú Lateral Móvil (Drawer) -->
+    <div id="mobile-nav-drawer" class="mobile-nav-drawer" aria-hidden="true">
+        <button id="mobile-nav-close-btn" class="mobile-nav-close" aria-label="Cerrar menú">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+        <div class="mobile-nav-logo">MARENE</div>
+        <nav class="mobile-nav-links">
+            <a href="index.html" class="mobile-nav-link">Inicio</a>
+            <a href="catalogo.html" class="mobile-nav-link">Catálogo</a>
+            <a href="nosotros.html" class="mobile-nav-link">Sobre Nosotros</a>
+            <a href="contacto.html" class="mobile-nav-link">Contacto</a>
+        </nav>
+    </div>
+    <div id="site-overlay" class="site-overlay"></div>
+
+    <!-- Carrito Lateral (Drawer) -->
+    <div id="cart-overlay" class="cart-overlay"></div>
+    <div id="cart-drawer" class="cart-drawer" aria-hidden="true" role="dialog">
+        <div class="cart-drawer-header">
+            <h3>Bolsa de Compra</h3>
+            <button id="cart-close-btn" class="cart-close-btn" aria-label="Cerrar Carrito">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div id="cart-drawer-items" class="cart-drawer-body">
+            <!-- Items del carrito se inyectan aquí con JS -->
+        </div>
+        <div class="cart-drawer-footer" style="display: none;">
+            <div class="cart-subtotal">
+                <span class="cart-subtotal-label">Subtotal</span>
+                <span id="cart-subtotal-val" class="cart-subtotal-val">$0 COP</span>
+            </div>
+            <p class="cart-shipping-notice">El costo de envío y detalles serán coordinados al finalizar por WhatsApp.</p>
+            <button id="cart-checkout-btn" class="btn btn-primary">Finalizar por WhatsApp</button>
+        </div>
+    </div>
+
+    <!-- Cuerpo Principal del Catálogo -->
+    <main class="container">
+        <!-- Breadcrumbs -->
+        <div class="breadcrumbs">
+            <a href="index.html">Inicio</a>
+            <span>/</span>
+            <span id="breadcrumb-current">Catálogo</span>
+        </div>
+
+        <h1 class="visually-hidden" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;">Catálogo de Joyería Minimalista | MARENE</h1>
+
+        <div class="catalog-layout">
+            
+            <!-- Botón Filtros Móvil -->
+            <button id="mobile-filter-btn" class="mobile-filter-trigger">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z"/>
+                </svg>
+                Filtros & Búsqueda
+            </button>
+
+            <!-- Barra Lateral de Filtros -->
+            <aside id="filter-sidebar" class="filter-sidebar">
+                
+                <!-- Búsqueda en catálogo -->
+                <div class="filter-group">
+                    <h3 class="filter-title">Buscar</h3>
+                    <div class="catalog-search-wrapper">
+                        <input type="text" id="catalog-search" placeholder="Escribe para buscar...">
+                        <span class="catalog-search-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Categorías -->
+                <div class="filter-group">
+                    <h3 class="filter-title">Categorías</h3>
+                    <ul class="filter-list">
+                        <li><button class="filter-btn active" data-cat="all">Todos <span class="filter-count" id="count-all">0</span></button></li>
+                        <li><button class="filter-btn" data-cat="aretes">Aretes <span class="filter-count" id="count-aretes">0</span></button></li>
+                        <li><button class="filter-btn" data-cat="collares">Collares <span class="filter-count" id="count-collares">0</span></button></li>
+                        <li><button class="filter-btn" data-cat="pulseras">Pulseras <span class="filter-count" id="count-pulseras">0</span></button></li>
+                        <li><button class="filter-btn" data-cat="anillos">Anillos <span class="filter-count" id="count-anillos">0</span></button></li>
+                        <li><button class="filter-btn" data-cat="sets">Sets <span class="filter-count" id="count-sets">0</span></button></li>
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- Rejilla de Contenido de Productos -->
+            <section class="catalog-content">
+                <!-- Título dinámico de la página / filtros activos -->
+                <div class="catalog-topbar">
+                    <span id="results-count" class="results-count">Mostrando 0 productos</span>
+                    
+                    <div class="sort-select-wrapper">
+                        <label for="sort-select">Ordenar por:</label>
+                        <select id="sort-select" class="sort-select" aria-label="Criterio de ordenación">
+                            <option value="newest">Novedades</option>
+                            <option value="price-asc">Menor precio</option>
+                            <option value="price-desc">Mayor precio</option>
+                            <option value="popular">Más valorados</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Fila de filtros activos -->
+                <div id="active-filters-row" class="active-filters-row" style="display: none;">
+                    <!-- Se inyectan las insignias de filtros activos dinámicamente -->
+                </div>
+
+                <!-- Grid de productos -->
+                <div id="catalog-products-grid" class="products-grid" style="min-height: 400px;">
+                    <!-- Se inyecta con JS -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer Completo -->
+    <footer class="site-footer" style="margin-top: var(--spacing-xxl);">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">MARENE</div>
+                    <p>MARENE es una marca de accesorios de mujer colombiana. Ofrecemos piezas minimalistas, versátiles y de excelente calidad para mujeres modernas y elegantes.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Políticas</h3>
+                    <ul class="footer-links">
+                        <li><a href="contacto.html">Envíos y Entregas</a></li>
+                        <li><a href="contacto.html">Garantías y Devoluciones</a></li>
+                        <li><a href="contacto.html">Términos del Servicio</a></li>
+                        <li><a href="contacto.html">Preguntas Frecuentes</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contacto</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:hola@marene.com">hola@marene.com</a></li>
+                        <li><a href="https://wa.me/573001234567" target="_blank">+57 300 123 4567</a></li>
+                        <li><p>Atención: Lun a Sáb 8am - 6pm</p></li>
+                        <li><p>Santa Marta, Colombia</p></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p>Suscríbete para recibir noticias de colecciones exclusivas y promociones.</p>
+                    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('¡Gracias por suscribirte!'); this.reset();">
+                        <input type="email" placeholder="Tu correo electrónico" required aria-label="Ingresa tu correo">
+                        <button type="submit">Unirme</button>
+                    </form>
+                    <div class="footer-socials">
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zM17.5 6.5h.01"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="TikTok">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path d="M9 12a4 4 0 104 4V4h4a4 4 0 004-4h-4a8 8 0 01-8 8v4z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="footer-year">2026</span> MARENE. Todos los derechos reservados.</p>
+                <p>Diseño Elegante Colombiano.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/favorites.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/catalog.js"></script>
+</body>
+</html>

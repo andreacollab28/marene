@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta id="meta-description" name="description" content="Detalle de producto de MARENE. Joyería minimalista de alta gama, hecha a mano en Colombia.">
+    <title>Detalle de Producto | MARENE</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2280%22 font-family=%22Georgia, serif%22 fill=%22%23C5A880%22>M</text></svg>">
+    
+    <!-- Canonical URL -->
+    <link id="canonical-link" rel="canonical" href="https://marene.com/producto.html">
+    
+    <!-- Google Fonts Preconnect & Link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS imports -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components/header.css">
+    <link rel="stylesheet" href="css/components/product-card.css">
+    <link rel="stylesheet" href="css/components/cart-drawer.css">
+    
+    <!-- Page Specific CSS -->
+    <style>
+        .product-detail-layout {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-xl);
+            align-items: start;
+        }
+        
+        /* Left Column: Gallery */
+        .product-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+        
+        .main-image-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            background-color: var(--color-bg-secondary);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            cursor: zoom-in;
+        }
+        
+        /* Zoom glass effect */
+        .main-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.1s ease-out;
+            transform-origin: center center;
+        }
+        
+        .gallery-thumbnails {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+        
+        .thumbnail-btn {
+            width: 70px;
+            height: 85px;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            border: 1px solid var(--color-border);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            background-color: var(--color-bg-secondary);
+        }
+        
+        .thumbnail-btn img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .thumbnail-btn.active, .thumbnail-btn:hover {
+            border-color: var(--color-accent);
+        }
+        
+        /* Right Column: Info */
+        .product-info-panel {
+            padding-left: var(--spacing-md);
+        }
+        
+        .product-category-lbl {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--color-accent);
+            margin-bottom: var(--spacing-xs);
+            font-weight: var(--fw-semibold);
+        }
+        
+        .product-title-lbl {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-sm);
+            line-height: 1.1;
+        }
+        
+        .product-rating-row {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .stars {
+            color: var(--color-accent);
+            display: flex;
+            font-size: 0.95rem;
+        }
+        
+        .reviews-count {
+            font-size: 0.85rem;
+            color: var(--color-text-secondary);
+        }
+        
+        .product-price-lbl {
+            font-size: 1.8rem;
+            font-weight: var(--fw-semibold);
+            color: var(--color-text-primary);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .product-desc-lbl {
+            font-size: 0.95rem;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-lg);
+            line-height: 1.6;
+        }
+        
+        /* Variant Option: Sizes for Rings */
+        .product-variant-group {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .variant-label {
+            font-size: 0.8rem;
+            font-weight: var(--fw-semibold);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: var(--spacing-sm);
+            display: block;
+        }
+        
+        .size-options {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+        
+        .size-btn {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+            background-color: var(--color-bg-primary);
+        }
+        
+        .size-btn:hover, .size-btn.active {
+            border-color: var(--color-text-primary);
+            background-color: var(--color-bg-dark);
+            color: var(--color-white);
+        }
+        
+        /* Buying Action Row */
+        .buying-actions {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+        }
+        
+        .qty-input-btn {
+            width: 45px;
+            height: 48px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .qty-input-btn:hover {
+            background-color: var(--color-bg-secondary);
+        }
+        
+        .qty-input-val {
+            font-size: 0.95rem;
+            min-width: 35px;
+            text-align: center;
+            font-weight: var(--fw-medium);
+        }
+        
+        .buying-actions .btn-add-to-cart {
+            flex: 1;
+            height: 48px;
+        }
+        
+        .btn-fav-large {
+            width: 48px;
+            height: 48px;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+            background-color: var(--color-white);
+        }
+        
+        .btn-fav-large:hover {
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+        }
+        
+        .btn-fav-large.active {
+            color: var(--color-accent);
+            border-color: var(--color-accent);
+        }
+        
+        /* Accordion Panels */
+        .info-accordions {
+            border-top: 1px solid var(--color-border);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .accordion-item {
+            border-bottom: 1px solid var(--color-border);
+        }
+        
+        .accordion-header {
+            width: 100%;
+            padding: 1.2rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: var(--fw-semibold);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-text-primary);
+            text-align: left;
+        }
+        
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+        
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
+        }
+        
+        .accordion-item.active .accordion-content {
+            max-height: 1000px;
+            transition: max-height 0.5s ease-in-out;
+        }
+        
+        .accordion-body {
+            padding: 0 0 1.2rem;
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+        }
+        
+        .accordion-body ul {
+            padding-left: var(--spacing-md);
+            margin-top: var(--spacing-xs);
+        }
+        
+        /* Recommendations Section */
+        .recommendations-section {
+            margin-top: var(--spacing-xxl);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .product-detail-layout {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-xl);
+            }
+            .product-info-panel {
+                padding-left: 0;
+            }
+        }
+        @media (max-width: 480px) {
+            .product-title-lbl {
+                font-size: 2rem;
+            }
+            .buying-actions {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+            }
+            .quantity-control {
+                justify-content: space-between;
+            }
+            .qty-input-btn {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Banner Anuncio Superior -->
+    <div class="promo-banner">
+        <span>Envío gratis a toda Colombia por compras superiores a $150.000</span>
+    </div>
+
+    <!-- Header Elegante (Navegación Sticky) -->
+    <header class="site-header">
+        <div class="container header-container">
+            <button id="menu-toggle-btn" class="menu-toggle" aria-label="Abrir Menú de Navegación">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav class="nav-menu" role="navigation">
+                <a href="index.html" class="nav-link">Inicio</a>
+                <a href="catalogo.html" class="nav-link">Catálogo</a>
+                <a href="nosotros.html" class="nav-link">Nosotros</a>
+                <a href="contacto.html" class="nav-link">Contacto</a>
+            </nav>
+
+            <div class="logo-container">
+                <a href="index.html" class="logo">MARENE</a>
+            </div>
+
+            <div class="header-actions">
+                <button id="search-toggle-btn" class="action-btn" aria-label="Buscar productos">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
+                    </svg>
+                </button>
+                <a href="contacto.html" class="action-btn" aria-label="Mi Cuenta / Soporte" id="account-action-id">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
+                    </svg>
+                </a>
+                <a href="catalogo.html?show=favorites" class="action-btn" aria-label="Lista de Favoritos" id="favorites-action-id">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
+                    </svg>
+                    <span class="badge fav-badge-count" style="display: none;">0</span>
+                </a>
+                <button onclick="openCartDrawer()" class="action-btn" aria-label="Abrir Carrito" id="cart-action-id">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                    </svg>
+                    <span class="badge cart-badge-count" style="display: none;">0</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Barra de Búsqueda Desplegable -->
+        <div id="search-overlay" class="search-overlay">
+            <div class="container">
+                <div class="search-input-wrapper">
+                    <input type="text" id="search-input" placeholder="Buscar collares, aretes, pulseras..." autocomplete="off">
+                    <button id="search-close-btn" class="search-close-inline" aria-label="Cerrar Búsqueda">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                <div id="search-results" class="search-results-dropdown"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menú Lateral Móvil (Drawer) -->
+    <div id="mobile-nav-drawer" class="mobile-nav-drawer" aria-hidden="true">
+        <button id="mobile-nav-close-btn" class="mobile-nav-close" aria-label="Cerrar menú">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+        <div class="mobile-nav-logo">MARENE</div>
+        <nav class="mobile-nav-links">
+            <a href="index.html" class="mobile-nav-link">Inicio</a>
+            <a href="catalogo.html" class="mobile-nav-link">Catálogo</a>
+            <a href="nosotros.html" class="mobile-nav-link">Sobre Nosotros</a>
+            <a href="contacto.html" class="mobile-nav-link">Contacto</a>
+        </nav>
+    </div>
+    <div id="site-overlay" class="site-overlay"></div>
+
+    <!-- Carrito Lateral (Drawer) -->
+    <div id="cart-overlay" class="cart-overlay"></div>
+    <div id="cart-drawer" class="cart-drawer" aria-hidden="true" role="dialog">
+        <div class="cart-drawer-header">
+            <h3>Bolsa de Compra</h3>
+            <button id="cart-close-btn" class="cart-close-btn" aria-label="Cerrar Carrito">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div id="cart-drawer-items" class="cart-drawer-body">
+            <!-- Items del carrito se inyectan aquí con JS -->
+        </div>
+        <div class="cart-drawer-footer" style="display: none;">
+            <div class="cart-subtotal">
+                <span class="cart-subtotal-label">Subtotal</span>
+                <span id="cart-subtotal-val" class="cart-subtotal-val">$0 COP</span>
+            </div>
+            <p class="cart-shipping-notice">El costo de envío y detalles serán coordinados al finalizar por WhatsApp.</p>
+            <button id="cart-checkout-btn" class="btn btn-primary">Finalizar por WhatsApp</button>
+        </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <main class="container">
+        <!-- Breadcrumbs -->
+        <div class="breadcrumbs">
+            <a href="index.html">Inicio</a>
+            <span>/</span>
+            <a href="catalogo.html">Catálogo</a>
+            <span>/</span>
+            <span id="breadcrumb-product-name">Cargando...</span>
+        </div>
+
+        <div class="product-detail-layout">
+            
+            <!-- Galería de fotos (Izquierda) -->
+            <section class="product-gallery" aria-label="Galería de imágenes">
+                <div id="main-image-container" class="main-image-wrapper">
+                    <img id="main-product-image" src="" alt="Cargando...">
+                </div>
+                <div id="thumbnails-container" class="gallery-thumbnails">
+                    <!-- Las miniaturas se inyectan aquí -->
+                </div>
+            </section>
+
+            <!-- Panel de Información (Derecha) -->
+            <section class="product-info-panel" aria-label="Detalles de compra">
+                <p id="product-category" class="product-category-lbl">Categoría</p>
+                <h1 id="product-title" class="product-title-lbl">Nombre del Producto</h1>
+                
+                <div class="product-rating-row">
+                    <div id="product-stars" class="stars">
+                        <!-- Estrellas cargadas con JS -->
+                    </div>
+                    <span id="product-reviews" class="reviews-count">(0 opiniones de clientes)</span>
+                </div>
+
+                <p id="product-price" class="product-price-lbl">$0 COP</p>
+                <p id="product-description" class="product-desc-lbl">Descripción del accesorio...</p>
+
+                <!-- Variantes de Talla (Solo Anillos) -->
+                <div id="size-variant-group" class="product-variant-group" style="display: none;">
+                    <span class="variant-label">Seleccionar Talla</span>
+                    <div class="size-options">
+                        <button class="size-btn active">5</button>
+                        <button class="size-btn">6</button>
+                        <button class="size-btn">7</button>
+                        <button class="size-btn">8</button>
+                    </div>
+                </div>
+
+                <!-- Acciones de compra -->
+                <div class="buying-actions">
+                    <!-- Selector de Cantidad -->
+                    <div class="quantity-control">
+                        <button id="qty-minus-btn" class="qty-input-btn" aria-label="Reducir cantidad">-</button>
+                        <span id="qty-value" class="qty-input-val">1</span>
+                        <button id="qty-plus-btn" class="qty-input-btn" aria-label="Aumentar cantidad">+</button>
+                    </div>
+
+                    <!-- Agregar al Carrito -->
+                    <button id="add-to-cart-btn" class="btn btn-primary btn-add-to-cart">Agregar al Carrito</button>
+
+                    <!-- Favoritos -->
+                    <button id="fav-detail-btn" class="btn-fav-large" aria-label="Guardar en favoritos">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Acordeones de Información Adicional -->
+                <div class="info-accordions">
+                    <!-- Acordeón 1: Detalles -->
+                    <div class="accordion-item active">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">
+                            Detalles del Producto
+                            <span class="accordion-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-body">
+                                <p id="product-material"><strong>Material:</strong> Carga...</p>
+                                <p id="product-dimensions" style="margin-top: 5px;"><strong>Dimensiones:</strong> Carga...</p>
+                                <ul id="product-features" style="margin-top: 10px;">
+                                    <!-- Viñetas de características -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Acordeón 2: Cuidados -->
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">
+                            Cuidados de la Joya
+                            <span class="accordion-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-body">
+                                <p id="product-care">Evita el contacto directo con perfumes, cremas, colonias o agua de mar para preservar el baño metálico de tu joya. Recomendamos guardar cada pieza en su saco de tela de MARENE individual para evitar rayones.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Acordeón 3: Envíos y Cambios -->
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">
+                            Envíos, Cambios y Garantías
+                            <span class="accordion-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-body">
+                                <p><strong>Envíos:</strong> Despachamos desde Santa Marta a todo el territorio nacional. Los envíos tardan entre 2 a 5 días hábiles según la ciudad destino.</p>
+                                <p style="margin-top: 5px;"><strong>Garantías:</strong> Ofrecemos una garantía de 30 días calendario sobre defectos de fabricación de la pieza. No cubre daños por mal uso o desgaste normal del baño de oro.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Sección de Recomendaciones -->
+        <section class="recommendations-section">
+            <div class="section-title">
+                <h2>Te Puede Gustar</h2>
+                <p>Piezas perfectas para combinar con tu selección</p>
+            </div>
+            <div id="recommended-products-grid" class="products-grid">
+                <!-- Se carga con JS -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Completo -->
+    <footer class="site-footer" style="margin-top: var(--spacing-xxl);">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">MARENE</div>
+                    <p>MARENE es una marca de accesorios de mujer colombiana. Ofrecemos piezas minimalistas, versátiles y de excelente calidad para mujeres modernas y elegantes.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Políticas</h3>
+                    <ul class="footer-links">
+                        <li><a href="contacto.html">Envíos y Entregas</a></li>
+                        <li><a href="contacto.html">Garantías y Devoluciones</a></li>
+                        <li><a href="contacto.html">Términos del Servicio</a></li>
+                        <li><a href="contacto.html">Preguntas Frecuentes</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contacto</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:hola@marene.com">hola@marene.com</a></li>
+                        <li><a href="https://wa.me/573001234567" target="_blank">+57 300 123 4567</a></li>
+                        <li><p>Atención: Lun a Sáb 8am - 6pm</p></li>
+                        <li><p>Santa Marta, Colombia</p></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p>Suscríbete para recibir noticias de colecciones exclusivas y promociones.</p>
+                    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('¡Gracias por suscribirte!'); this.reset();">
+                        <input type="email" placeholder="Tu correo electrónico" required aria-label="Ingresa tu correo">
+                        <button type="submit">Unirme</button>
+                    </form>
+                    <div class="footer-socials">
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zM17.5 6.5h.01"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="TikTok">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path d="M9 12a4 4 0 104 4V4h4a4 4 0 004-4h-4a8 8 0 01-8 8v4z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="footer-year">2026</span> MARENE. Todos los derechos reservados.</p>
+                <p>Diseño Elegante Colombiano.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/favorites.js"></script>
+    <script src="js/main.js"></script>
+    
+    <script>
+        // Lógica de detalle de producto en la página
+        let currentProduct = null;
+        let selectedQuantity = 1;
+        let activeImageIndex = 0;
+
+        // Cargar producto de acuerdo al parámetro 'id'
+        function loadProductDetails() {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+            
+            if (!id || !window.PRODUCTS) {
+                window.location.href = 'catalogo.html';
+                return;
+            }
+            
+            currentProduct = window.PRODUCTS.find(p => p.id === id);
+            
+            if (!currentProduct) {
+                window.location.href = 'catalogo.html';
+                return;
+            }
+
+            // Actualizar SEO Meta Tags y Título de página
+            document.title = `${currentProduct.name} | MARENE`;
+            const metaDesc = document.getElementById('meta-description');
+            if (metaDesc) metaDesc.setAttribute('content', currentProduct.description);
+            const canonicalLink = document.getElementById('canonical-link');
+            if (canonicalLink) canonicalLink.setAttribute('href', window.location.href);
+
+            // Inyectar Datos Estructurados JSON-LD para SEO
+            try {
+                // Remover JSON-LD previo si existe
+                const oldScript = document.getElementById('product-jsonld');
+                if (oldScript) oldScript.remove();
+
+                const jsonLd = {
+                    "@context": "https://schema.org/",
+                    "@type": "Product",
+                    "name": currentProduct.name,
+                    "image": window.location.origin + '/' + currentProduct.mainImage,
+                    "description": currentProduct.description,
+                    "offers": {
+                        "@type": "Offer",
+                        "url": window.location.href,
+                        "priceCurrency": "COP",
+                        "price": currentProduct.price,
+                        "availability": "https://schema.org/InStock",
+                        "seller": {
+                            "@type": "Organization",
+                            "name": "MARENE"
+                        }
+                    }
+                };
+                const script = document.createElement('script');
+                script.id = 'product-jsonld';
+                script.type = 'application/ld+json';
+                script.text = JSON.stringify(jsonLd);
+                document.head.appendChild(script);
+            } catch (e) {
+                console.error("Error al inyectar JSON-LD:", e);
+            }
+
+            // Inyectar textos básicos
+            document.getElementById('breadcrumb-product-name').textContent = currentProduct.name;
+            document.getElementById('product-category').textContent = currentProduct.categoryLabel;
+            document.getElementById('product-title').textContent = currentProduct.name;
+            document.getElementById('product-price').textContent = window.formatCOP(currentProduct.price);
+            document.getElementById('product-description').textContent = currentProduct.description;
+            
+            // Detalles del Acordeón 1
+            document.getElementById('product-material').innerHTML = `<strong>Material:</strong> ${currentProduct.material}`;
+            document.getElementById('product-dimensions').innerHTML = `<strong>Dimensiones:</strong> ${currentProduct.dimensions}`;
+            
+            // Características
+            const featuresList = document.getElementById('product-features');
+            featuresList.innerHTML = '';
+            currentProduct.features.forEach(feat => {
+                const li = document.createElement('li');
+                li.textContent = feat;
+                featuresList.appendChild(li);
+            });
+
+            // Si tiene cuidado específico, cargarlo
+            if (currentProduct.care) {
+                document.getElementById('product-care').textContent = currentProduct.care;
+            }
+
+            // Mostrar u ocultar tallas para anillos
+            const sizeGroup = document.getElementById('size-variant-group');
+            if (currentProduct.category === 'anillos') {
+                sizeGroup.style.display = 'block';
+            } else {
+                sizeGroup.style.display = 'none';
+            }
+
+            // Estrellas
+            renderStars(currentProduct.rating, currentProduct.reviewsCount);
+
+            // Galería
+            renderGallery();
+
+            // Configurar Favorito botón grande
+            updateFavoriteButtonState();
+
+            // Cargar Recomendados
+            renderRecommended();
+        }
+
+        // Renderizar estrellas de calificación
+        function renderStars(rating, reviews) {
+            const starsEl = document.getElementById('product-stars');
+            const reviewsEl = document.getElementById('product-reviews');
+            
+            if (!starsEl || !reviewsEl) return;
+            
+            reviewsEl.textContent = `(${reviews} opiniones de clientas)`;
+            
+            let html = '';
+            const fullStars = Math.floor(rating);
+            const halfStar = rating % 1 >= 0.5;
+            
+            for (let i = 1; i <= 5; i++) {
+                if (i <= fullStars) {
+                    html += '★';
+                } else if (i === fullStars + 1 && halfStar) {
+                    html += '½★'; // Simplificado para unicode, en premium se usan SVG
+                } else {
+                    html += '☆';
+                }
+            }
+            starsEl.textContent = html;
+        }
+
+        // Renderizar Galería de Imágenes y configurar miniaturas
+        function renderGallery() {
+            const mainImg = document.getElementById('main-product-image');
+            const thumbContainer = document.getElementById('thumbnails-container');
+            
+            if (!mainImg || !thumbContainer || !currentProduct.images) return;
+            
+            mainImg.src = currentProduct.images[0];
+            mainImg.alt = currentProduct.name;
+            activeImageIndex = 0;
+
+            thumbContainer.innerHTML = '';
+            currentProduct.images.forEach((imgUrl, index) => {
+                const btn = document.createElement('button');
+                btn.className = `thumbnail-btn ${index === 0 ? 'active' : ''}`;
+                btn.innerHTML = `<img src="${imgUrl}" alt="${currentProduct.name} - miniatura ${index + 1}">`;
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.thumbnail-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    mainImg.src = imgUrl;
+                    activeImageIndex = index;
+                });
+                thumbContainer.appendChild(btn);
+            });
+
+            // Configurar Lupa Zoom en la imagen principal
+            setupImageZoom();
+        }
+
+        // Efecto Lupa / Zoom sobre la imagen principal
+        function setupImageZoom() {
+            const wrapper = document.getElementById('main-image-container');
+            const img = document.getElementById('main-product-image');
+            
+            if (!wrapper || !img) return;
+
+            wrapper.addEventListener('mousemove', (e) => {
+                const { left, top, width, height } = wrapper.getBoundingClientRect();
+                const x = ((e.clientX - left) / width) * 100;
+                const y = ((e.clientY - top) / height) * 100;
+                
+                img.style.transformOrigin = `${x}% ${y}%`;
+                img.style.transform = 'scale(2.0)';
+            });
+
+            wrapper.addEventListener('mouseleave', () => {
+                img.style.transformOrigin = 'center center';
+                img.style.transform = 'scale(1.0)';
+            });
+        }
+
+        // Configurar e inicializar acordeones
+        window.toggleAccordion = function(header) {
+            const item = header.parentElement;
+            const isActive = item.classList.contains('active');
+            
+            // Cerrar otros (opcional, pero en premium suele permitirse abrir varios a la vez. Hagamos solo alternar uno)
+            item.classList.toggle('active');
+        };
+
+        // Lógica de cantidad
+        const qtyValEl = document.getElementById('qty-value');
+        
+        document.getElementById('qty-minus-btn').addEventListener('click', () => {
+            if (selectedQuantity > 1) {
+                selectedQuantity--;
+                qtyValEl.textContent = selectedQuantity;
+            }
+        });
+        
+        document.getElementById('qty-plus-btn').addEventListener('click', () => {
+            selectedQuantity++;
+            qtyValEl.textContent = selectedQuantity;
+        });
+
+        // Configurar botón favoritos
+        const favBtn = document.getElementById('fav-detail-btn');
+        
+        function updateFavoriteButtonState() {
+            if (!favBtn || !currentProduct) return;
+            const isFav = window.isFavorite ? window.isFavorite(currentProduct.id) : false;
+            
+            const path = favBtn.querySelector('path');
+            if (isFav) {
+                favBtn.classList.add('active');
+                if (path) path.setAttribute('fill', 'currentColor');
+            } else {
+                favBtn.classList.remove('active');
+                if (path) path.setAttribute('fill', 'none');
+            }
+        }
+
+        favBtn.addEventListener('click', () => {
+            if (!currentProduct) return;
+            window.toggleFavorite(currentProduct.id);
+        });
+
+        // Event listener para actualizar botón de favoritos
+        window.addEventListener('favoritesUpdated', () => {
+            updateFavoriteButtonState();
+        });
+
+        // Agregar al carrito
+        document.getElementById('add-to-cart-btn').addEventListener('click', () => {
+            if (!currentProduct) return;
+            window.addToCart(currentProduct.id, selectedQuantity);
+            // Reiniciar selector de cantidad a 1
+            selectedQuantity = 1;
+            qtyValEl.textContent = '1';
+        });
+
+        // Tallas para anillos
+        const sizeButtons = document.querySelectorAll('.size-btn');
+        sizeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                sizeButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        // Renderizar recomendados del mismo tipo o similares
+        function renderRecommended() {
+            const grid = document.getElementById('recommended-products-grid');
+            if (!grid || !window.PRODUCTS || !currentProduct) return;
+            
+            // Buscar productos de la misma categoría que no sean el actual
+            let recList = window.PRODUCTS.filter(p => p.category === currentProduct.category && p.id !== currentProduct.id);
+            
+            // Si hay pocos, agregar de otras categorías
+            if (recList.length < 3) {
+                const extras = window.PRODUCTS.filter(p => p.id !== currentProduct.id && p.category !== currentProduct.category);
+                recList = [...recList, ...extras];
+            }
+            
+            // Limitar a 3
+            recList = recList.slice(0, 3);
+            
+            let html = '';
+            recList.forEach(product => {
+                const isFav = window.isFavorite ? window.isFavorite(product.id) : false;
+                const heartFill = isFav ? 'currentColor' : 'none';
+                const activeClass = isFav ? 'active' : '';
+                
+                html += `
+                    <div class="product-card" data-id="${product.id}">
+                        <div class="product-card-image">
+                            <a href="producto.html?id=${product.id}">
+                                <img src="${product.mainImage}" alt="${product.name}" class="product-main-img">
+                                <img src="${product.hoverImage}" alt="${product.name}" class="product-hover-img">
+                            </a>
+                            <button class="fav-btn ${activeClass}" data-id="${product.id}" onclick="toggleFavorite('${product.id}')" aria-label="Agregar a favoritos">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="${heartFill}" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
+                                </svg>
+                            </button>
+                            ${product.new ? '<span class="product-badge badge-new">Nuevo</span>' : ''}
+                        </div>
+                        <div class="product-card-info">
+                            <p class="product-card-category">${product.categoryLabel}</p>
+                            <h3 class="product-card-title"><a href="producto.html?id=${product.id}">${product.name}</a></h3>
+                            <div class="product-card-footer">
+                                <span class="product-card-price">${window.formatCOP(product.price)}</span>
+                                <button class="btn-add-cart-icon" onclick="addToCart('${product.id}')" aria-label="Agregar al carrito">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            grid.innerHTML = html;
+        }
+
+        // Cargar detalles al iniciar
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProductDetails();
+            
+            // Escuchar cambios de favoritos para actualizar las tarjetas recomendadas
+            window.addEventListener('favoritesUpdated', () => {
+                const heartButtons = document.querySelectorAll('.recommendations-section .fav-btn');
+                heartButtons.forEach(btn => {
+                    const id = btn.getAttribute('data-id');
+                    const isFav = window.isFavorite ? window.isFavorite(id) : false;
+                    const path = btn.querySelector('path');
+                    if (isFav) {
+                        btn.classList.add('active');
+                        if (path) path.setAttribute('fill', 'currentColor');
+                    } else {
+                        btn.classList.remove('active');
+                        if (path) path.setAttribute('fill', 'none');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
