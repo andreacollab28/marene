@@ -5,13 +5,24 @@ let searchQuery = '';
 let currentSort = 'newest';
 let isFavoritesView = false;
 
+function isCategoryEnabled(categoryId) {
+    if (!window.CATEGORIES) return true;
+    const category = window.CATEGORIES.find(cat => cat.id === categoryId);
+    return category ? category.enabled : false;
+}
+
+function getEnabledCategoryIds() {
+    if (!window.CATEGORIES) return [];
+    return window.CATEGORIES.filter(cat => cat.enabled).map(cat => cat.id);
+}
+
 // Obtener parámetros de la URL para filtros iniciales
 function parseUrlParams() {
     const params = new URLSearchParams(window.location.search);
     
     // Filtro de Categoría
     const catParam = params.get('cat');
-    if (catParam) {
+    if (catParam && isCategoryEnabled(catParam)) {
         activeCategory = catParam;
     }
     
@@ -98,12 +109,14 @@ function initCatalog() {
 function updateCategoryCounts() {
     if (!window.PRODUCTS) return;
     
+    const enabledCategoryIds = getEnabledCategoryIds();
     const countAllEl = document.getElementById('count-all');
-    if (countAllEl) countAllEl.textContent = window.PRODUCTS.length;
-    
-    const categories = ['aretes', 'collares', 'pulseras', 'anillos', 'sets'];
-    
-    categories.forEach(cat => {
+    if (countAllEl) {
+        const total = window.PRODUCTS.filter(product => enabledCategoryIds.includes(product.category)).length;
+        countAllEl.textContent = total;
+    }
+
+    enabledCategoryIds.forEach(cat => {
         const el = document.getElementById(`count-${cat}`);
         if (el) {
             const count = window.PRODUCTS.filter(p => p.category === cat).length;
@@ -134,10 +147,12 @@ function applyFilters() {
         const breadcrumbEl = document.getElementById('breadcrumb-current');
         if (breadcrumbEl) breadcrumbEl.textContent = 'Catálogo';
         
-        // 2. Filtrar por categoría
+            // 2. Filtrar por categoría
         if (activeCategory !== 'all') {
             filteredList = filteredList.filter(product => product.category === activeCategory);
         }
+        // Siempre aplicar habilitación de categorías al catálogo
+        filteredList = filteredList.filter(product => isCategoryEnabled(product.category));
     }
     
     // 3. Filtrar por término de búsqueda
@@ -259,6 +274,8 @@ window.clearFavoritesFilter = function() {
     categoryButtons.forEach(btn => {
         if (btn.getAttribute('data-cat') === 'all') {
             btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
         }
     });
     

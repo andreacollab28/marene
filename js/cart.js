@@ -208,32 +208,28 @@ function checkoutWhatsApp() {
     const items = getCartItems();
     if (items.length === 0) return;
 
-    // Teléfono de contacto de MARENE (simulado o configurable)
-    // Usamos un número genérico de prueba (ej: 573000000000 - Código de país 57 para Colombia)
-    const phoneNumber = "573001234567"; 
+    const phoneNumber = window.CONFIG && window.CONFIG.whatsappNumber ? window.CONFIG.whatsappNumber : '573001234567';
+    const intro = window.CONFIG && window.CONFIG.whatsappOrderIntro ? window.CONFIG.whatsappOrderIntro : '✨ *NUEVO PEDIDO - MARENE* ✨\n\nHola, me gustaría realizar el siguiente pedido:';
     
-    let message = "✨ *NUEVO PEDIDO - MARENE* ✨\n\n";
-    message += "Hola MARENE, me encantaría realizar una compra con los siguientes productos:\n\n";
-    
+    let message = `${intro}\n\n`;
     items.forEach((item, index) => {
         message += `${index + 1}. *${item.name}* (Cant: ${item.quantity})\n`;
-        message += `   - Categoria: ${item.categoryLabel}\n`;
+        message += `   - Categoría: ${item.categoryLabel}\n`;
         message += `   - Subtotal: ${formatCOP(item.price * item.quantity)}\n\n`;
     });
     
     const total = getCartTotal();
     message += `💰 *TOTAL A PAGAR:* ${formatCOP(total)}\n\n`;
-    message += `📝 *Tus Datos de Envío:*\n`;
-    message += `- Nombre Completo:\n`;
+    message += `📝 *Datos de envío:*\n`;
+    message += `- Nombre completo:\n`;
     message += `- Ciudad / Departamento:\n`;
     message += `- Dirección:\n`;
-    message += `- Teléfono:\n\n`;
-    message += `¿Me podrían indicar los pasos para realizar el pago? ¡Muchas gracias! 🤍`;
+    message += `- Teléfono / WhatsApp:\n\n`;
+    message += `¿Me puedes indicar los pasos para realizar el pago? Muchas gracias. 🤍`;
 
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
     
-    // Abrir WhatsApp en pestaña nueva
     window.open(whatsappUrl, '_blank');
 }
 

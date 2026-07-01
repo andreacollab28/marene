@@ -16,7 +16,7 @@
     <title>MARENE | Joyería Minimalista & Accesorios Premium</title>
     
     <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2280%22 font-family=%22Georgia, serif%22 fill=%22%23C5A880%22>M</text></svg>">
+    <link rel="icon" href="assets/images/favicon.svg">
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://marene.com/index.html">
@@ -519,7 +519,7 @@
 
     <!-- 1. Banner Anuncio Superior -->
     <div class="promo-banner">
-        <span>Envío gratis a toda Colombia por compras superiores a $150.000</span>
+        <span>Joyas pensadas para acompañarte hoy y mañana.</span>
     </div>
 
     <!-- 2. Header Elegante (Navegación Sticky) -->
@@ -542,7 +542,8 @@
 
             <!-- Logo Centrado -->
             <div class="logo-container">
-                <a href="index.html" class="logo">MARENE</a>
+                <a href="index.html" class="logo" aria-label="MARENE">MARENE</a>
+                <!-- Reemplaza este texto por tu logo SVG cuando esté listo -->
             </div>
 
             <!-- Acciones -->
@@ -652,47 +653,8 @@
             <p>Piezas diseñadas para complementar tu estilo único</p>
         </div>
         
-        <div class="categories-grid">
-            <!-- Aretes -->
-            <a href="catalogo.html?cat=aretes" class="category-card">
-                <img src="assets/images/aretes-solstice-1.png" alt="Categoría Aretes">
-                <div class="category-overlay">
-                    <h3 class="category-name">Aretes</h3>
-                    <span class="category-btn">Ver piezas</span>
-                </div>
-            </a>
-            <!-- Collares -->
-            <a href="catalogo.html?cat=collares" class="category-card">
-                <img src="assets/images/collar-aura-1.png" alt="Categoría Collares">
-                <div class="category-overlay">
-                    <h3 class="category-name">Collares</h3>
-                    <span class="category-btn">Ver piezas</span>
-                </div>
-            </a>
-            <!-- Pulseras -->
-            <a href="catalogo.html?cat=pulseras" class="category-card">
-                <img src="assets/images/pulsera-twist-1.png" alt="Categoría Pulseras">
-                <div class="category-overlay">
-                    <h3 class="category-name">Pulseras</h3>
-                    <span class="category-btn">Ver piezas</span>
-                </div>
-            </a>
-            <!-- Anillos -->
-            <a href="catalogo.html?cat=anillos" class="category-card">
-                <img src="assets/images/anillo-twist-1.png" alt="Categoría Anillos">
-                <div class="category-overlay">
-                    <h3 class="category-name">Anillos</h3>
-                    <span class="category-btn">Ver piezas</span>
-                </div>
-            </a>
-            <!-- Sets -->
-            <a href="catalogo.html?cat=sets" class="category-card">
-                <img src="assets/images/set-celeste-1.png" alt="Categoría Sets Especiales">
-                <div class="category-overlay">
-                    <h3 class="category-name">Sets</h3>
-                    <span class="category-btn">Ver piezas</span>
-                </div>
-            </a>
+        <div id="home-categories-grid" class="categories-grid">
+            <!-- Las categorías habilitadas se renderizan automáticamente desde js/data.js -->
         </div>
     </section>
 
@@ -724,7 +686,7 @@
                     <p class="promo-desc">
                         Nuestra joyería está diseñada bajo el concepto del minimalismo cálido. Creemos que una pieza pequeña puede transformar por completo tu actitud y presencia. Todos nuestros accesorios cuentan con baños de metales preciosos seleccionados a mano.
                     </p>
-                    <a href="catalogo.html?cat=sets" class="btn btn-primary">Explorar Sets</a>
+                    <a href="catalogo.html?cat=collares" class="btn btn-primary">Explorar Collares</a>
                 </div>
                 <div class="promo-image-wrapper">
                     <img src="assets/images/collar-aura-3.png" alt="Detalle de joyería minimalista MARENE">

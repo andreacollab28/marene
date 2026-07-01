@@ -192,6 +192,79 @@ function initFooterYear() {
     }
 }
 
+// 6. Renderizar categorías dinámicamente según configuración global
+function renderDynamicCategoryElements() {
+    if (window.CATEGORIES && window.CATEGORIES.length) {
+        const categoryFilterList = document.getElementById('category-filters');
+        if (categoryFilterList) {
+            categoryFilterList.innerHTML = '';
+            const allItem = document.createElement('li');
+            allItem.innerHTML = `<button class="filter-btn active" data-cat="all">Todos <span class="filter-count" id="count-all">0</span></button>`;
+            categoryFilterList.appendChild(allItem);
+
+            window.CATEGORIES.forEach(category => {
+                if (!category.enabled) return;
+                const item = document.createElement('li');
+                item.innerHTML = `
+                    <button class="filter-btn" data-cat="${category.id}">
+                        ${category.label}
+                        <span class="filter-count" id="count-${category.id}">0</span>
+                    </button>
+                `;
+                categoryFilterList.appendChild(item);
+            });
+        }
+
+        const homeCategoriesGrid = document.getElementById('home-categories-grid');
+        if (homeCategoriesGrid) {
+            homeCategoriesGrid.innerHTML = '';
+            window.CATEGORIES.forEach(category => {
+                if (!category.enabled) return;
+                const card = document.createElement('a');
+                card.className = 'category-card category-card-placeholder';
+                card.href = `catalogo.html?cat=${category.id}`;
+                card.innerHTML = `
+                    <div class="category-card-visual"></div>
+                    <div class="category-overlay">
+                        <h3 class="category-name">${category.label}</h3>
+                        <span class="category-btn">Ver piezas</span>
+                    </div>
+                `;
+                homeCategoriesGrid.appendChild(card);
+            });
+
+            // Si sólo hay una categoría habilitada, usar una sola tarjeta más grande en el home.
+            const activeCount = window.CATEGORIES.filter(cat => cat.enabled).length;
+            if (activeCount === 1) {
+                homeCategoriesGrid.classList.add('single-category-grid');
+            } else {
+                homeCategoriesGrid.classList.remove('single-category-grid');
+            }
+        }
+    }
+}
+
+// 7. Botón flotante de WhatsApp para toda la tienda
+function createWhatsAppFloatButton() {
+    const existing = document.getElementById('whatsapp-float-btn');
+    if (existing) return;
+
+    const whatsappNumber = window.CONFIG && window.CONFIG.whatsappNumber ? window.CONFIG.whatsappNumber : '573001234567';
+    const message = window.CONFIG && window.CONFIG.whatsappIntro ? window.CONFIG.whatsappIntro : 'Hola MARENE, quiero recibir atención personalizada para mi pedido.';
+    const encodedMessage = encodeURIComponent(message);
+    const button = document.createElement('a');
+    button.id = 'whatsapp-float-btn';
+    button.className = 'whatsapp-float';
+    button.href = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+    button.target = '_blank';
+    button.rel = 'noopener noreferrer';
+    button.innerHTML = `
+        <span class="whatsapp-float__icon" aria-hidden="true">+</span>
+        <span class="whatsapp-float__label">Escríbenos</span>
+    `;
+    document.body.appendChild(button);
+}
+
 // Inicializar todas las funcionalidades al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
     // Escuchar el scroll del header con throttle mediante requestAnimationFrame
@@ -212,6 +285,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initInstantSearch();
     initScrollReveal();
     initFooterYear();
+    renderDynamicCategoryElements();
+    createWhatsAppFloatButton();
 });
 
 // Función global para generar el HTML de una tarjeta de producto (Product Card)
