@@ -356,6 +356,18 @@
             updateSlidePosition();
         }
 
+        // NUEVA: Función para renderizar los productos en la cuadrícula principal al cargar
+        function initShopPage() {
+            const grid = document.getElementById('product-grid');
+            if (!grid || !window.PRODUCTS) return;
+
+            let html = '';
+            window.PRODUCTS.forEach(product => {
+                html += window.createProductCardHTML(product);
+            });
+            grid.innerHTML = html;
+        }
+
         // Lógica de filtrado dinámico local
         function applyCategoryFilter(category, currentButton) {
             document.querySelectorAll('.btn-filter').forEach(btn => btn.classList.remove('active'));
@@ -392,6 +404,7 @@
             moveSlide(1);
         }, 5000);
 
+        // Evento que arranca la tienda apenas carga la página
         document.addEventListener('DOMContentLoaded', () => {
             if (typeof initShopPage === 'function') {
                 initShopPage();
