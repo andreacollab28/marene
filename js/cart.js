@@ -193,12 +193,12 @@ function updateCartUI() {
     }
 }
 
-// Proceder al checkout por WhatsApp (Recopila cantidad, color y datos - image_12.png)
+// Proceder al checkout por WhatsApp (Número real actualizado)
 function checkoutWhatsApp() {
     const items = getCartItems();
     if (items.length === 0) return;
 
-    const phoneNumber = '573001234567'; // Número de prueba para Colombia
+    const phoneNumber = '573169268672'; // Número real de WhatsApp Business para MARENE
     let message = `✨ *NUEVO PEDIDO - MARENE* ✨\n\nHola, me gustaría realizar el siguiente pedido desde el carrito:\n\n`;
     
     items.forEach((item, index) => {
@@ -223,13 +223,13 @@ function checkoutWhatsApp() {
     window.open(whatsappUrl, '_blank');
 }
 
-// Botón "Comprar ahora" directo de la ficha del producto (image_11.png)
+// Botón "Comprar ahora" directo de la ficha del producto (Número real actualizado)
 function buyProductWhatsApp(productId, quantity = 1, color = 'Único') {
     if (!window.PRODUCTS || !productId) return;
     const product = window.PRODUCTS.find(p => p.id === productId);
     if (!product) return;
 
-    const phoneNumber = '573001234567';
+    const phoneNumber = '573169268672'; // Número real de WhatsApp Business para MARENE
     let message = `Hola MARENE, quiero hacer el pedido de este producto ahora mismo:\n\n`;
     message += `*${product.name}*\n`;
     message += `- Color: ${color}\n`;
